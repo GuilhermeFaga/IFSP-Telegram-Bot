@@ -2,7 +2,7 @@ FROM arm64v8/python:3.9.0-buster
 
 COPY qemu-arm-static /usr/bin
 
-WORKDIR /code
+WORKDIR /
 
 COPY requirements.txt ./
 
