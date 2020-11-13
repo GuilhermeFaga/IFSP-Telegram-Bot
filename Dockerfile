@@ -1,4 +1,4 @@
-FROM arm64v8/python
+FROM arm64v8/python:latest
 
 WORKDIR /app
 

@@ -9,7 +9,7 @@ telegram = {
 moodle = {
     "url": os.environ.get('MOODLE_URL'),
     "baseURL": os.environ.get('MOODLE_URL') + "/webservice/rest/server.php?",
-    "userToken": os.environ.get('MOODLE_TOKEN'),
+    "userToken": "wstoken=" + os.environ.get('MOODLE_TOKEN'),
     "defaultParams": "&moodlewsrestformat=json"
 }
 
