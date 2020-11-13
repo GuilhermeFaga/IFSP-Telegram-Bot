@@ -1,6 +1,6 @@
-FROM arm64v8/python:latest
+FROM python:3.8.4-slim
 
-WORKDIR /app
+WORKDIR /code
 
 COPY requirements.txt ./
 
@@ -12,4 +12,4 @@ ENV PORT=8090
 
 EXPOSE 8090
 
-CMD ["python","main.py"]
+CMD ["python","./main.py"]
