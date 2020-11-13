@@ -6,10 +6,6 @@ WORKDIR /code
 
 COPY requirements.txt ./
 
-RUN apt-get update
-
-RUN apt-get install build-essential
-
 RUN pip install -r requirements.txt
 
 COPY . .
