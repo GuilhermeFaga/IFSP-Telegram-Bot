@@ -1,14 +1,15 @@
+import os
 
 telegram = {
-    "token": "<bot-token>",
-    "username": "@<bot-username>",
-    "feedback_chat_id": 123456789
+    "token": os.environ.get('BOT_TOKEN'),
+    "username": '@' + os.environ.get('BOT_NAME'),
+    "feedback_chat_id": os.environ.get('BOT_FEEDBACKID')
 }
 
 moodle = {
-    "url": "<my-moodle-url>",
-    "baseURL": "<my-moodle-url>/webservice/rest/server.php?",
-    "userToken": "wstoken=<my-moodle-token>",
+    "url": os.environ.get('MOODLE_URL'),
+    "baseURL": os.environ.get('MOODLE_URL') + "/webservice/rest/server.php?",
+    "userToken": os.environ.get('MOODLE_TOKEN'),
     "defaultParams": "&moodlewsrestformat=json"
 }
 

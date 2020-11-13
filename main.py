@@ -6,6 +6,7 @@ import commands
 import replies
 import callbacks
 import json
+import os
 
 app = Flask(__name__)
 
@@ -48,6 +49,8 @@ def handle_callbacks(callback_query):
         callbacks.logoff(callback_query, bot)
     elif callback_query.data == "feedback":
         callbacks.feedback(callback_query, bot)
+    elif callback_query.data == "ver_cursos":
+        callbacks.show_courses(callback_query, bot)
 
 
 def handle_messages(msg):
@@ -58,4 +61,4 @@ def handle_messages(msg):
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8090, debug=True)
+    app.run(host='127.0.0.1', port=os.environ.get('PORT') or 8090, debug=True)

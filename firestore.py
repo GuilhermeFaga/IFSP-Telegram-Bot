@@ -34,3 +34,7 @@ def get_chat(chat):
     if not snapshot.exists:
         return False
     return snapshot.to_dict()
+
+
+doc = fs.document("teste", "123")
+doc.set({"teste": 123})

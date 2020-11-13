@@ -11,7 +11,8 @@ def config(msg, bot):
     if chat:
         markup.add(types.InlineKeyboardButton("Deslogar", callback_data="logoff"),
                    types.InlineKeyboardButton("Moodle", url=moodle["url"]),
-                   types.InlineKeyboardButton("Ver cursos", callback_data="1"),
+                   types.InlineKeyboardButton(
+                       "Ver cursos", callback_data="ver_cursos"),
                    types.InlineKeyboardButton(
                        "Editar notificacoes", callback_data="1"),
                    types.InlineKeyboardButton("Enviar feedback", callback_data="feedback"))

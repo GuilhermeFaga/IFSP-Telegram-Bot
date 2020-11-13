@@ -36,8 +36,10 @@ def get_courses_by_user_email(email):
     users = get_users_by_email(email)
     if not users:
         return None
-    # if users.json()['exception']:
-    #     print(users.json())
+    # if users['exception']:
+    #     print(users)
     #     return None
-    # print(users.json())
     return get_courses_by_user_id(users[0]["id"])
+
+
+print(get_courses_by_user_email("f.galletti@aluno.ifsp.edu.br"))

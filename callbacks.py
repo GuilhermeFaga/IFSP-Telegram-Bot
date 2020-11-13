@@ -29,3 +29,7 @@ def logoff(callback_query, bot):
 def feedback(callback_query, bot):
     bot.send_message(callback_query.message.chat.id, texts["feedback"],
                      reply_markup=types.ForceReply())
+
+
+def show_courses(callback_query, bot):
+    pass
