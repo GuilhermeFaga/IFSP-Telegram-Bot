@@ -1,8 +1,10 @@
-FROM arm64v8/python:latest
+FROM balenalib/raspberry-pi-python
 
-WORKDIR /app
+WORKDIR /code
 
 COPY requirements.txt ./
+
+RUN pip install --upgrade pip
 
 RUN pip install -r requirements.txt
 
@@ -12,4 +14,4 @@ ENV PORT=8090
 
 EXPOSE 8090
 
-CMD ["python","main.py"]
+CMD ["python3","./main.py"]
