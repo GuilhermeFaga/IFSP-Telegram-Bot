@@ -1,11 +1,10 @@
-from google.cloud import firestore
+from pymongo import MongoClient
 
-fs = firestore.Client()
+client = MongoClient("127.0.0.1:27017")
+db = client.bot
 
 
 def store_chat(chat, email, courses):
-    doc = fs.document("chats", str(chat.id))
-
     courses_array = []
 
     for course in courses:
@@ -15,7 +14,8 @@ def store_chat(chat, email, courses):
             "fullname": course["fullname"]
         })
 
-    return doc.set({
+    return db.chats.insert_one({
+        "id": str(chat.id),
         "type": chat.type,
         "email": email,
         "courses": courses_array,
@@ -24,17 +24,8 @@ def store_chat(chat, email, courses):
 
 
 def delete_chat(chat):
-    doc = fs.document("chats", str(chat.id))
-    return doc.delete()
+    return db.chats.delete_one({"id": str(chat.id)})
 
 
 def get_chat(chat):
-    doc = fs.document("chats", str(chat.id))
-    snapshot = doc.get()
-    if not snapshot.exists:
-        return False
-    return snapshot.to_dict()
-
-
-doc = fs.document("teste", "123")
-doc.set({"teste": 123})
+    return db.chats.find_one({"id": str(chat.id)})
