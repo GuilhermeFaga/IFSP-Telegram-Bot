@@ -1,4 +1,4 @@
-FROM balenalib/raspberry-pi-python
+FROM arm64v8/python:3.9.0-buster
 
 WORKDIR /code
 

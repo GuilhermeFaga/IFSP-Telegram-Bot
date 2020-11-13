@@ -1,6 +1,6 @@
 from telebot import types
 from settings import texts, moodle
-import firestore
+import mongodb
 
 
 def login(callback_query, bot):
@@ -10,7 +10,7 @@ def login(callback_query, bot):
 
 def logoff(callback_query, bot):
     msg = callback_query.message
-    firestore.delete_chat(msg.chat)
+    mongodb.delete_chat(msg.chat)
 
     markup = types.InlineKeyboardMarkup(row_width=2)
     markup.add(types.InlineKeyboardButton("Logar", callback_data="login"),

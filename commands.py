@@ -1,10 +1,10 @@
-import firestore
+import mongodb
 from telebot import types
 from settings import moodle
 
 
 def config(msg, bot):
-    chat = firestore.get_chat(msg.chat)
+    chat = mongodb.get_chat(msg.chat)
 
     markup = types.InlineKeyboardMarkup(row_width=2)
 
