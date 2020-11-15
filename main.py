@@ -1,4 +1,3 @@
-from flask import Flask, request
 from telebot import types
 from settings import telegram, texts
 import telebot
@@ -8,14 +7,23 @@ import callbacks
 import json
 import os
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
 global bot
 bot = telebot.TeleBot(
     telegram["token"], parse_mode="HTML")
 
 
-@app.route('/', methods=['POST'])
+@bot.message_handler(func=lambda m: True)
+def handle_message(msg):
+    if msg.reply_to_message:
+        handle_replies(msg)
+    elif not msg.from_user.is_bot and not msg.group_chat_created:
+        handle_messages(msg)
+
+# @app.route('/ifsp_bot', methods=['POST'])
+
+
 def handle_request():
     update = types.Update.de_json(request.json)
     if update.callback_query:
@@ -42,15 +50,16 @@ def handle_replies(msg):
         replies.feedback(msg, bot)
 
 
-def handle_callbacks(callback_query):
-    if callback_query.data == "login":
-        callbacks.login(callback_query, bot)
-    elif callback_query.data == "logoff":
-        callbacks.logoff(callback_query, bot)
-    elif callback_query.data == "feedback":
-        callbacks.feedback(callback_query, bot)
-    elif callback_query.data == "ver_cursos":
-        callbacks.show_courses(callback_query, bot)
+@bot.callback_query_handler(func=lambda call: True)
+def handle_callbacks(call):
+    if call.data == "login":
+        callbacks.login(call, bot)
+    elif call.data == "logoff":
+        callbacks.logoff(call, bot)
+    elif call.data == "feedback":
+        callbacks.feedback(call, bot)
+    elif call.data == "ver_cursos":
+        callbacks.show_courses(call, bot)
 
 
 def handle_messages(msg):
@@ -60,5 +69,7 @@ def handle_messages(msg):
         bot.send_message(msg.chat.id, texts["configurar"])
 
 
-if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=os.environ.get('PORT') or 8090, debug=True)
+bot.polling()
+
+# if __name__ == '__main__':
+#     app.run(host='0.0.0.0', port=os.environ.get('PORT') or 8090, debug=True)

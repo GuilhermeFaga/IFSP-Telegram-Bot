@@ -42,4 +42,4 @@ def get_courses_by_user_email(email):
     return get_courses_by_user_id(users[0]["id"])
 
 
-print(get_courses_by_user_email("f.galletti@aluno.ifsp.edu.br"))
+#print(get_courses_by_user_email("f.galletti@aluno.ifsp.edu.br"))

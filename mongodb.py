@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 
-client = MongoClient("127.0.0.1:27017")
+client = MongoClient("192.168.0.55:27017")
 db = client.bot
 
 

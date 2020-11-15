@@ -7,3 +7,6 @@ __pycache__
 pyvenv.cfg
 sandbox.py
 test.py
+cert.pem
+key.pem
+.env

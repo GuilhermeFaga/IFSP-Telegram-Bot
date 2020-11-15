@@ -1,4 +1,6 @@
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 telegram = {
     "token": os.environ.get('BOT_TOKEN'),
