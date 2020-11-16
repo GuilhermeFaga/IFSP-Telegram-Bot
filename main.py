@@ -7,7 +7,6 @@ import callbacks
 import json
 import os
 
-# app = Flask(__name__)
 
 global bot
 bot = telebot.TeleBot(
@@ -20,8 +19,6 @@ def handle_message(msg):
         handle_replies(msg)
     elif not msg.from_user.is_bot and not msg.group_chat_created:
         handle_messages(msg)
-
-# @app.route('/ifsp_bot', methods=['POST'])
 
 
 def handle_request():
@@ -70,6 +67,3 @@ def handle_messages(msg):
 
 
 bot.polling()
-
-# if __name__ == '__main__':
-#     app.run(host='0.0.0.0', port=os.environ.get('PORT') or 8090, debug=True)

@@ -2,14 +2,12 @@ from telebot import types
 from settings import texts, telegram
 import mongodb
 import commands
-# import test
 import moodleAPI
 
 
 def login(msg, bot):
     if '.' and '@' in msg.text:
         courses = moodleAPI.get_courses_by_user_email(msg.text)
-        # courses = test.courses
         if not courses:
             bot.reply_to(msg, texts["email_nao_encontrado"],
                          reply_markup=types.ForceReply())
