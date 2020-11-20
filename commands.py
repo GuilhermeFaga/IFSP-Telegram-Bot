@@ -3,7 +3,9 @@ from telebot import types
 from settings import moodle
 
 
-def config(msg, bot):
+def config(msg, bot, callback_query=None):
+    if callback_query:
+        msg = callback_query.message
     chat = mongodb.get_chat(msg.chat)
 
     markup = types.InlineKeyboardMarkup(row_width=2)
@@ -15,6 +17,8 @@ def config(msg, bot):
                        "Ver cursos", callback_data="ver_cursos"),
                    types.InlineKeyboardButton(
                        "Editar notificacoes", callback_data="1"),
+                   types.InlineKeyboardButton(
+                       "Calendário", callback_data="calendar"),
                    types.InlineKeyboardButton("Enviar feedback", callback_data="feedback"))
     else:
         markup.add(types.InlineKeyboardButton("Logar", callback_data="login"),
@@ -26,4 +30,8 @@ def config(msg, bot):
 <b>Cursos:</b> {len(chat["courses"]) if chat else "🚫"}
 <b>Notificacoes:</b> {chat["notifications"] if chat else "🚫"}"""
 
-    bot.send_message(msg.chat.id, message, reply_markup=markup)
+    if callback_query:
+        bot.edit_message_text(
+            message, chat_id=msg.chat.id, message_id=msg.message_id, reply_markup=markup)
+    else:
+        bot.send_message(msg.chat.id, message, reply_markup=markup)

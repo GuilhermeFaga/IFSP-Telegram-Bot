@@ -1,11 +1,8 @@
-from telebot import types
 from settings import telegram, texts
 import telebot
 import commands
 import replies
 import callbacks
-import json
-import os
 
 
 global bot
@@ -19,25 +16,6 @@ def handle_message(msg):
         handle_replies(msg)
     elif not msg.from_user.is_bot and not msg.group_chat_created:
         handle_messages(msg)
-
-
-def handle_request():
-    update = types.Update.de_json(request.json)
-    if update.callback_query:
-        # bot.send_message(update.callback_query.message.chat.id,
-        #                  f"<pre>{json.dumps(request.json)}</pre>")
-        handle_callbacks(update.callback_query)
-    elif update.message:
-        # bot.send_message(update.message.chat.id,
-        #                  f"<pre>{json.dumps(request.json)}</pre>")
-        msg = update.message
-        print(type(msg.chat.id))
-        if msg.reply_to_message:
-            handle_replies(msg)
-        elif not msg.from_user.is_bot and not msg.group_chat_created:
-            handle_messages(msg)
-
-    return "OK", 200
 
 
 def handle_replies(msg):
@@ -56,7 +34,11 @@ def handle_callbacks(call):
     elif call.data == "feedback":
         callbacks.feedback(call, bot)
     elif call.data == "ver_cursos":
-        callbacks.show_courses(call, bot)
+        callbacks.courses(call, bot)
+    elif call.data == "config":
+        commands.config(callback_query=call, bot=bot, msg=None)
+    elif call.data == "calendar":
+        callbacks.calendar(call, bot)
 
 
 def handle_messages(msg):
@@ -66,4 +48,5 @@ def handle_messages(msg):
         bot.send_message(msg.chat.id, texts["configurar"])
 
 
+print("Bot started")
 bot.polling()
